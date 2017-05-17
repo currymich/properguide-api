@@ -21,12 +21,11 @@ class Order < ApplicationRecord
     self[:subtotal]*(1+self[:tax])+ self[:shipping]
   end
 
+  def set_order_status(id=1)
+    self[:order_status_id] = id
+  end
+
   private
-
-    def set_order_status
-      self.order_status_id = 1
-    end
-
     def update_subtotal
       self[:subtotal] = subtotal
     end
