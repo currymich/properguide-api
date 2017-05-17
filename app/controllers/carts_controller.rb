@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   def show
-    render json: {order_items: current_order.order_items}
+    @order = current_order
+    render json: {order_items: @order.order_items}
   end
 end
