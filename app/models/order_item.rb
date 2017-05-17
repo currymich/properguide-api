@@ -9,11 +9,7 @@ class OrderItem < ApplicationRecord
   before_save :finalize
 
   def unit_price
-    if persisted?
-      self[:unit_price]
-    else
-      product.price
-    end
+    product.price
   end
 
   def total_price
