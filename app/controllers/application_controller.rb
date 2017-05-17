@@ -1,12 +1,4 @@
 class ApplicationController < ActionController::API
-  def current_order
-    if !session[:order_id].nil?
-      Order.find(session[:order_id])
-    else
-      Order.new
-    end
-  end
-
   def authenticate
     render json: {status: 401, message: "unauthorized"} unless decode_token(bearer_token)
   end
@@ -27,6 +19,18 @@ class ApplicationController < ActionController::API
     decoded_jwt = decode_token(bearer_token)
 
     @current_user ||= User.find(decoded_jwt["user"]["id"])
+  end
+
+  def current_order
+    if !current_user.nil?
+      @user = current_user
+
+      if !current_user.orders.find_by(order_status_id: 1).nil?
+        current_user.orders.find_by(order_status_id: 1)
+      else
+        current_user.orders.create(order_status_id: 1)
+      end
+    end
   end
 
   def decode_token(token)
