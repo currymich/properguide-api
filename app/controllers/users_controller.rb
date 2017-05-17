@@ -3,8 +3,11 @@ class UsersController < ApplicationController
 
   def signup
     @user = User.new(user_params)
-    if @user.save && @user.authenticate(params[:user][:password])
-      @token = token(user.id, user.email)
+    if @user.save
+
+      @user.authenticate(params[:user][:password])
+
+      @token = token(@user.id, @user.email)
 
       render json: {status: 200, message: "user created and logged in", user: @user, token: @token}
     else
@@ -20,7 +23,7 @@ class UsersController < ApplicationController
     end
 
     if @user && @user.authenticate(params[:user][:password])
-      @token = token(user.id, user.email)
+      @token = token(@user.id, @user.email)
 
       render json: {status: 201, user: @user, message: "user logged in", token: @token}
     else
