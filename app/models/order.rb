@@ -3,10 +3,22 @@ class Order < ApplicationRecord
   belongs_to :user
   has_many :order_items
   before_create :set_order_status
-  before_save :update_subtotal
+  before_save :update_subtotal, :finalize
 
   def subtotal
     order_items.collect { |oi| oi.valid? ? oi.total_price : 0 }.sum
+  end
+
+  def tax
+    0.09
+  end
+
+  def shipping
+    10.0
+  end
+
+  def total
+    self[:subtotal]*(1+self[:tax])+ self[:shipping]
   end
 
   private
@@ -17,5 +29,11 @@ class Order < ApplicationRecord
 
     def update_subtotal
       self[:subtotal] = subtotal
+    end
+
+    def finalize
+      self[:tax] = tax
+      self[:shipping] = shipping
+      self[:total] = total
     end
 end
