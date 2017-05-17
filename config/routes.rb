@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   resources :order_items, only: [:create, :update, :destroy, :index]
 
-  resources :carts, only: [:show]
-
   resources :products, only: [:index, :show]
 
   resources :users, only: [:show] do
@@ -15,4 +13,6 @@ Rails.application.routes.draw do
   end
 
   resources :questions, only: [:create]
+
+  get '/cart', to: 'carts#show'
 end
