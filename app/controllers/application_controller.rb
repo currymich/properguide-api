@@ -1,4 +1,12 @@
 class ApplicationController < ActionController::API
+  def current_order
+    if !session[:order_id].nil?
+      Order.find(session[:order_id])
+    else
+      Order.new
+    end
+  end
+
   def authenticate
     render json: {status: 401, message: "unauthorized"} unless decode_token(bearer_token)
   end
