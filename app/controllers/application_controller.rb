@@ -26,15 +26,16 @@ class ApplicationController < ActionController::API
   end
 
   def current_order
-    if !current_user.nil?
-      @user = current_user
+    return if current_user.nil?
 
-      if !current_user.orders.find_by(order_status_id: 1).nil?
-        current_user.orders.find_by(order_status_id: 1)
-      else
-        current_user.orders.create(order_status_id: 1)
-      end
+    @user = current_user
+
+    if !@user.orders.find_by(order_status_id: 1).nil?
+      @user.orders.find_by(order_status_id: 1)
+    else
+      @user.orders.create(order_status_id: 1)
     end
+
   end
 
   def decode_token(token)
