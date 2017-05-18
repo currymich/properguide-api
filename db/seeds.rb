@@ -14,4 +14,4 @@ OrderStatus.create! id: 4, name: "Cancelled"
 
 Product.destroy_all
 Product.create! id: 1, name: "Surgical Stent", price: 300, image_url: "../img/stent_guide.jpg", active: true
-Product.create! id: 2, name: "Implant", price: 500, image_url: "../img/case3.jpg", active: true
+Product.create! id: 2, name: "Crown", price: 500, image_url: "../img/case3.jpg", active: true
