@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :authorize_cart
+  # before_action :authorize_cart
 
   def show
     @order = current_order
