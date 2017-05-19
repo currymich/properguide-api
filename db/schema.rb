@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518184901) do
+ActiveRecord::Schema.define(version: 20170519214347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dentists", force: :cascade do |t|
+    t.string   "name"
+    t.string   "office_name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "address"
+    t.string   "address_state"
+    t.string   "address_zip"
+    t.string   "address_city"
+    t.string   "license_num"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "order_items", force: :cascade do |t|
     t.integer  "product_id"
@@ -25,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170518184901) do
     t.datetime "updated_at",                           null: false
     t.string   "unit_name"
     t.string   "image_url"
+    t.string   "alt_image"
     t.index ["order_id"], name: "index_order_items_on_order_id", using: :btree
     t.index ["product_id"], name: "index_order_items_on_product_id", using: :btree
   end
@@ -43,9 +58,9 @@ ActiveRecord::Schema.define(version: 20170518184901) do
     t.integer  "order_status_id"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.integer  "user_id"
+    t.integer  "dentist_id"
+    t.index ["dentist_id"], name: "index_orders_on_dentist_id", using: :btree
     t.index ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
-    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|
@@ -55,6 +70,7 @@ ActiveRecord::Schema.define(version: 20170518184901) do
     t.datetime "updated_at",                          null: false
     t.string   "image_url"
     t.boolean  "active"
+    t.string   "alt_image"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -78,6 +94,6 @@ ActiveRecord::Schema.define(version: 20170518184901) do
 
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "orders", "dentists"
   add_foreign_key "orders", "order_statuses"
-  add_foreign_key "orders", "users"
 end
