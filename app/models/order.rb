@@ -6,6 +6,10 @@ class Order < ApplicationRecord
   before_create :set_order_status
   before_save :update_subtotal, :finalize
 
+  def count
+    order_items.count
+  end
+
   def subtotal
     order_items.collect { |oi| oi.valid? ? oi.total_price : 0 }.sum
   end
@@ -32,6 +36,7 @@ class Order < ApplicationRecord
     end
 
     def finalize
+      self[:count] = count
       self[:tax] = tax
       self[:shipping] = shipping
       self[:total] = total
