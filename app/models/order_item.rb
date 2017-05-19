@@ -20,6 +20,10 @@ class OrderItem < ApplicationRecord
     product.image_url
   end
 
+  def alt_image
+    product.alt_image
+  end
+
   def total_price
     unit_price * quantity
   end
@@ -39,6 +43,7 @@ private
   end
 
   def finalize
+    self[:alt_image] = alt_image
     self[:unit_name] = unit_name
     self[:unit_price] = unit_price
     self[:image_url] = image_url
