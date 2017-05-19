@@ -14,5 +14,5 @@ Rails.application.routes.draw do
 
   resources :questions, only: [:create]
 
-  get '/cart', to: 'carts#show'
+  resources :orders, only: [:create, :index, :show]
 end
