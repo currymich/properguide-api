@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
   before_create :set_order_status
-  before_save :update_subtotal, :finalize
+  before_save :update_subtotal, :update_tax, :update_count, :update_total, :finalize
 
   def count
     order_items.count
@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   end
 
   def tax
-    0.09
+    0.09 * subtotal
   end
 
   def shipping
@@ -33,6 +33,18 @@ class Order < ApplicationRecord
   private
     def update_subtotal
       self[:subtotal] = subtotal
+    end
+
+    def update_count
+      self[:count] = count
+    end
+
+    def update_tax
+      self[:tax] = tax
+    end
+
+    def update_total
+      self[:total] = total
     end
 
     def finalize
