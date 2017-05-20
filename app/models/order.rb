@@ -15,7 +15,11 @@ class Order < ApplicationRecord
   end
 
   def tax
-    0.09 * subtotal
+    if subtotal.nil?
+      return 0
+    else
+      return 0.09 * subtotal
+    end
   end
 
   def shipping
@@ -23,7 +27,7 @@ class Order < ApplicationRecord
   end
 
   def total
-    self[:subtotal]*(1+self[:tax])+ self[:shipping]
+    shipping + tax + subtotal
   end
 
   def set_order_status(id=1)
