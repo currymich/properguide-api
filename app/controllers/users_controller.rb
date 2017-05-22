@@ -1,19 +1,19 @@
 class UsersController < ApplicationController
   before_action :authorize, except: [:login, :signup]
 
-  def signup
-    @user = User.new(user_params)
-    if @user.save
-
-      @user.authenticate(params[:user][:password])
-
-      @token = token(@user.id, @user.email)
-
-      render json: {status: 200, message: "user created and logged in", user: @user, token: @token}
-    else
-      render json: {status: 422, user: @user.errors}
-    end
-  end
+  # def signup
+  #   @user = User.new(user_params)
+  #   if @user.save
+  #
+  #     @user.authenticate(params[:user][:password])
+  #
+  #     @token = token(@user.id, @user.email)
+  #
+  #     render json: {status: 200, message: "user created and logged in", user: @user, token: @token}
+  #   else
+  #     render json: {status: 422, user: @user.errors}
+  #   end
+  # end
 
   def login
     if params[:user][:email].include? "@"
