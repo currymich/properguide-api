@@ -22,6 +22,14 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    @order = Order.find(params[:id])
+
+    @order.destroy!
+    render json: {status: 204}
+
+    rescue ActiveRecord::RecordNotFound => error
+      render json: {error: "Order not found"}
   private
 
     def order_params
