@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   end
 
   def authorize
-    render json: {status: 401, message: "unauthorized"} unless current_user.id == params[:id].to_i
+    render json: {status: 401, message: "unauthorized"} unless current_user && current_user.id == params[:id].to_i
   end
 
   def authorize_cart
