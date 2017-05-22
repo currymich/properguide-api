@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :questions, only: [:create]
 
-  resources :orders, only: [:create, :index, :show, :destroy] do
+  resources :orders, only: [:create, :index, :destroy] do
     resources :order_items, only: [:create, :update, :destroy, :index]
   end
 end
@@ -30,4 +30,3 @@ end
 # DELETE /orders/:order_id/order_items/:id(.:format) order_items#destroy
 # GET    /orders(.:format)                           orders#index
 # POST   /orders(.:format)                           orders#create
-# GET    /orders/:id(.:format)                       orders#show

@@ -5,18 +5,11 @@ class OrdersController < ApplicationController
     render json: {orders: Order.all}
   end
 
-  def show
-    render json: {order: Order.find(params[:id])}
-
-    rescue ActiveRecord::RecordNotFound => error
-      render json: {error: "Order not found"}
-  end
-
   def create
     @order = Order.new(order_params)
 
     if @order.save!
-      render json: {status: 201, order: @order}
+      render json: {status: 201, orders: Order.all}
     else
       render json: {status: 422}
     end
@@ -26,7 +19,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     @order.destroy!
-    render json: {status: 204}
+    render json: {status: 204, orders: Order.all}
 
     rescue ActiveRecord::RecordNotFound => error
       render json: {error: "Order not found"}
