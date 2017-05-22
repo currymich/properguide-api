@@ -1,35 +1,49 @@
 class OrderItemsController < ApplicationController
+  before_action :authenticate
+
+  def index
+    @order = Order.find(params[:order_id])
+
+    render json: {order_items: @order.order_items, order: @order}
+
+    rescue ActiveRecord::RecordNotFound => error
+      render json: {error: "Order not found"}
+  end
+
   def create
-    @order = current_order
+    @order = Order.find(params[:order_id])
     @order.order_items.new(order_item_params)
 
     if @order.save!
-      session[:order_id] = @order.id
-      render json: {status: 201, order_items: @order.order_items}
+      render json: {status: 201, order_items: @order.order_items, order: @order}
     else
       render json: {status: 422}
     end
+
+    rescue ActiveRecord::RecordNotFound => error
+      render json: {error: "Order not found"}
   end
 
   def update
-    @order = current_order
+    @order = Order.find(params[:order_id])
     @order_item = @order.order_items.find(params[:id])
 
     if @order_item.update(order_item_params)
-      @order_items = @order.order_items
-      render json: {status: 201, order_items: @order.order_items}
+      render json: {status: 201, order_items: @order.order_items, order: @order}
     else
       render json: {status: 422}
     end
+
+    rescue ActiveRecord::RecordNotFound => error
+      render json: {error: "Order not found"}
   end
 
   def destroy
-    @order = current_order
+    @order = Order.find(params[:order_id])
     @order_item = @order.order_items.find(params[:id])
 
     @order_item.destroy
-    @order_items = @order.order_items
-    render json: {status: 204, order_items: @order.order_items}
+    render json: {status: 204, order_items: @order.order_items, order: @order}
   end
 
   private
