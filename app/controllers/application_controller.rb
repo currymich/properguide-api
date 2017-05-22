@@ -25,19 +25,6 @@ class ApplicationController < ActionController::API
     @current_user ||= User.find(decoded_jwt["user"]["id"])
   end
 
-  def current_order
-    return if current_user.nil?
-
-    @user = current_user
-
-    if !@user.orders.find_by(order_status_id: 1).nil?
-      @user.orders.find_by(order_status_id: 1)
-    else
-      @user.orders.create(order_status_id: 1)
-    end
-
-  end
-
   def decode_token(token)
     @token ||= JWT.decode(token, nil, false)[0] # this will error if the token is invalid or expired
   rescue
