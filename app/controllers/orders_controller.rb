@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => error
       render json: {error: "Order not found"}
+    end
   private
 
     def order_params
