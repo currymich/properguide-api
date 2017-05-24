@@ -13,15 +13,13 @@ OrderStatus.create! id: 3, name: "Shipped"
 OrderStatus.create! id: 4, name: "Cancelled"
 
 Product.destroy_all
-Product.create! id: 1, name: "Surgical Stent", price: 120, image_url: "../img/stent_guide.jpg", alt_image: "../img/stent_guide.jpg", active: true
-Product.create! id: 2, name: "Crown", price: 150, image_url: "../img/crown1.jpg", alt_image: "../img/crown2.jpg", active: true
-Product.create! id: 3, name: "Veneer", price: 150, image_url: "../img/veneer1.jpg", alt_image: "../img/veneer2.jpg", active: true
-Product.create! id: 4, name: "Screw Retained", price: 400, image_url: "../img/screw1.jpg", alt_image: "../img/screw2.jpg", active: true
-Product.create! id: 5, name: "Cement Retained", price: 400, image_url: "../img/cement1.jpg", alt_image: "../img/cement2.jpg", active: true
+Product.create! id: 1, name: "Surgical Stent with Implant Guide", price: 120, image_url: "../img/stent_guide.jpg", alt_image: "../img/stent_guide.jpg", active: true
+Product.create! id: 2, name: "CBCT", price: 150, image_url: "../img/cbct.jpg", active: true
+Product.create! id: 3, name: "Screw Retained Crown", price: 400, image_url: "../img/screw1.jpg", alt_image: "../img/screw2.jpg", active: true
+Product.create! id: 4, name: "Cement Retained Crown", price: 400, image_url: "../img/cement1.jpg", alt_image: "../img/cement2.jpg", active: true
+Product.create! id: 5, name: "E-Max Veneer", price: 150, image_url: "../img/veneer1.jpg", alt_image: "../img/veneer2.jpg", active: true
 Product.create! id: 6, name: "Bridge", price: 150, image_url: "../img/bridge1.jpg", alt_image: "../img/bridge2.jpg", active: true
-
-User.destroy_all
-User.create! name: "Mike", username: "currymich", email: "currymich@gmail.com", password: "test"
+Product.create! id: 7, name: "Non-Implant Crown", price: 150, image_url: "../img/crown1.jpg", alt_image: "../img/crown2.jpg", active: true
 
 Dentist.destroy_all
 Dentist.create! id: 1, name: "William Choi", office_name: "ProperGuide", email: "willdmd@gmail.com", phone: "5105175355", address: "1598 Washington ave", address_state: "CA", address_city: "San Leandro", address_zip: "94577", license_num: "189a80ab"
@@ -30,7 +28,7 @@ Dentist.create! id: 2, name: "Ngan Tran", office_name: "Bell Dental", email: "ng
 
 Order.create! id: 1, order_status_id: 1, dentist_id: 1, patient_name: "Mike Curry"
 Order.create! id: 2, order_status_id: 1, dentist_id: 1, patient_name: "Andrew Doan"
-Order.create! id: 3, order_status_id: 1, dentist_id: 1, patient_name: "Bau-Chau Nguyen"
+Order.create! id: 3, order_status_id: 1, dentist_id: 1, patient_name: "Bao-Chau Nguyen"
 
 Order.create! id: 4, order_status_id: 1, dentist_id: 2, patient_name: "Richard Lai"
 Order.create! id: 5, order_status_id: 2, dentist_id: 2, patient_name: "Chris Park"
