@@ -1,10 +1,10 @@
 class QuestionsController < ApplicationController
   def create
-    question = Question.new(question_params)
+    @question = Question.new(question_params)
 
-    if question.save!
+    if @question.save!
       QuestionMailer.question_email(question).deliver_later
-      render json: {status: 201, question: question}
+      render json: {status: 201, question: @question}
     else
       render json: {status: 422}
     end
