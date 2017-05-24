@@ -8,7 +8,6 @@ class OrderItemsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => error
       render json: {error: "Order not found"}
-    end
   end
 
   def create
@@ -23,7 +22,6 @@ class OrderItemsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => error
       render json: {error: "Order not found"}
-    end
   end
 
   def update
@@ -38,7 +36,6 @@ class OrderItemsController < ApplicationController
 
     rescue ActiveRecord::RecordNotFound => error
       render json: {error: "Order not found"}
-    end
   end
 
   def destroy
