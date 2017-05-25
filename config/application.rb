@@ -28,7 +28,7 @@ module ProperguideApi
     config.api_only = true
     config.middleware.insert_before 0, "Rack::Cors" do
      allow do
-       origins /\Aproperguide-api\.herokuapp\.com\z/
+       origins /\Aproperguide-api\.herokuapp\.com\z/, /properguideimplant(s*)\.com/
        resource '*', :headers => :any, :methods => [:get, :post, :patch, :options]
      end
    end
