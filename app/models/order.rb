@@ -5,7 +5,6 @@ class Order < ApplicationRecord
   has_many :products, through: :order_items
 
   before_save :finalize
-  after_save :save_parents
 
   def update_order_status=(id)
     if (id <= 4 && id >= 1)
@@ -15,11 +14,6 @@ class Order < ApplicationRecord
   end
 
 protected
-
-  def save_parents
-    dentist.save
-    order_status.save
-  end
 
   def update_order_status
     status_id = self[:order_status_id]
