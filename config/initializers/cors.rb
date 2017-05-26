@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins /(http[s]*:\/\/)?properguide-(api|ui).herokuapp.com/, /(http[s]*:\/\/)?(www\.)?properguideimplant[s]?\.com/
+    origins /(http[s]*:\/\/)?properguide-(api|ui).herokuapp.com/, /(http[s]*:\/\/)?(www\.)?properguideimplant[s]?\.com/, 'http://localhost:4000'
 
     resource '*',
       headers: :any,
