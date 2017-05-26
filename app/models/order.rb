@@ -3,60 +3,58 @@ class Order < ApplicationRecord
   belongs_to :dentist
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
-  before_create :set_order_status
-  before_save :update_subtotal, :update_tax, :update_count, :update_total, :finalize
 
-  def count
-    order_items.collect { |oi| oi.valid? ? oi.quantity : 0 }.sum
-  end
+  before_save :finalize
+  after_save :save_parents
 
-  def subtotal
-    order_items.collect { |oi| oi.valid? ? oi.total_price : 0 }.sum
-  end
-
-  def tax
-    if subtotal.nil?
-      return 0
-    else
-      return 0.09 * subtotal
+  def update_order_status=(id)
+    if (id <= 4 && id >= 1)
+      self[:order_status_id] = id
+      self.save
     end
   end
 
-  def shipping
-    10.0
+protected
+
+  def save_parents
+    dentist.save
+    order_status.save
   end
 
-  def total
-    shipping + tax + subtotal
+  def update_order_status
+    status_id = self[:order_status_id]
+    self[:order_status] = OrderStatus.find(status_id).name
   end
 
-  def set_order_status(id=1)
-    self[:order_status_id] = id
-    self[:order_status] = OrderStatus.find(id).name
+  def update_count
+    self[:count] = order_items.collect { |oi| oi.valid? ? oi.quantity : 0 }.sum
   end
 
-  private
-    def update_subtotal
-      self[:subtotal] = subtotal
-    end
+  def update_subtotal
+    self[:subtotal] = order_items.collect { |oi| oi.valid? ? oi.total_price : 0 }.sum
+  end
 
-    def update_count
-      self[:count] = count
-    end
+  def update_tax
+    self[:tax] = 0.09 * subtotal
+  end
 
-    def update_tax
-      self[:tax] = tax
-    end
+  def update_shipping(shipping)
+    self[:shipping] = shipping
+  end
 
-    def update_total
-      self[:total] = total
-    end
+  def update_total
+    self[:total] = self[:shipping] + self[:tax] + self[:subtotal]
+  end
 
-    def finalize
-      self[:dentist_name] = Dentist.find(dentist_id).name
-      self[:count] = count
-      self[:tax] = tax
-      self[:shipping] = shipping
-      self[:total] = total
-    end
+private
+
+  def finalize
+    self[:dentist_name] = Dentist.find(dentist_id).name
+    self[:shipping] = 0
+    update_order_status
+    update_subtotal
+    update_count
+    update_tax
+    update_total
+  end
 end

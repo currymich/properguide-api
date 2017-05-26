@@ -7,25 +7,22 @@ class OrderItem < ApplicationRecord
   validate :order_present
 
   before_save :finalize
+  after_save :save_parents
 
-  def unit_price
-    product.price
+  def update_quantity=(quantity)
+    self[:quantity] = quantity
+    self.save
   end
 
-  def unit_name
-    product.name
+protected
+
+  def update_total
+    self[:total_price] = self[:quantity] * self[:unit_price]
   end
 
-  def image_url
-    product.image_url
-  end
-
-  def alt_image
-    product.alt_image
-  end
-
-  def total_price
-    unit_price * quantity
+  def save_parents
+    order.save
+    product.save
   end
 
 private
@@ -43,10 +40,10 @@ private
   end
 
   def finalize
-    self[:alt_image] = alt_image
-    self[:unit_name] = unit_name
-    self[:unit_price] = unit_price
-    self[:image_url] = image_url
-    self[:total_price] = quantity * self[:unit_price]
+    self[:unit_price] = product.price
+    self[:unit_name] = product.name
+    self[:image_url] = product.image_url
+    self[:alt_image] = product.alt_image
+    update_total
   end
 end
