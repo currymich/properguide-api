@@ -7,7 +7,7 @@ class Order < ApplicationRecord
   before_save :update_subtotal, :update_tax, :update_count, :update_total, :finalize
 
   def count
-    order_items.count
+    order_items.collect { |oi| oi.valid? ? oi.quantity : 0 }.sum
   end
 
   def subtotal
