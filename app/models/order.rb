@@ -32,6 +32,7 @@ class Order < ApplicationRecord
 
   def set_order_status(id=1)
     self[:order_status_id] = id
+    self[:order_status] = OrderStatus.find(id)
   end
 
   private
@@ -52,6 +53,7 @@ class Order < ApplicationRecord
     end
 
     def finalize
+      self[:dentist_name] = Dentist.find(dentist_id)
       self[:count] = count
       self[:tax] = tax
       self[:shipping] = shipping

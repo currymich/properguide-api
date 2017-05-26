@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519233211) do
+ActiveRecord::Schema.define(version: 20170526012426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 20170519233211) do
     t.integer  "dentist_id"
     t.integer  "count"
     t.string   "patient_name"
+    t.string   "dentist_name"
+    t.string   "order_status"
     t.index ["dentist_id"], name: "index_orders_on_dentist_id", using: :btree
     t.index ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
   end
