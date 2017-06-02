@@ -25,7 +25,7 @@ class OrderItemsController < ApplicationController
 
       @order_item = @order.order_items.find_by(product_id: params[:order_item][:product_id])
 
-      if @order_item.update(quantity: @order_item.quantity + params[:order_item][:quantity])
+      if @order_item.update(quantity: @order_item.quantity.to_i + params[:order_item][:quantity].to_i)
         render json: {status: 201, order_items: @order.order_items, order: @order}
       else
         render json: {status: 422}
