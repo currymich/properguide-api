@@ -40,3 +40,7 @@ Order.find(3).order_items.create! product_id: 3, quantity: 1
 Order.find(3).order_items.create! product_id: 6, quantity: 1
 Order.find(4).order_items.create! product_id: 5, quantity: 1
 Order.find(5).order_items.create! product_id: 1, quantity: 2
+
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
