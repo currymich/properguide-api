@@ -13,10 +13,24 @@ class OrderItemsController < ApplicationController
   def create
     @order = Order.find(params[:order_id])
 
-    if @order.order_items.create!(order_item_params)
-      render json: {status: 201, order_items: @order.order_items, order: @order}
+    if @order.order_items.where(product_id: params[:product_id]).empty?
+
+      if @order.order_items.create!(order_item_params)
+        render json: {status: 201, order_items: @order.order_items, order: @order}
+      else
+        render json: {status: 422}
+      end
+
     else
-      render json: {status: 422}
+
+      @order_item = @order.order_items.find_by(product_id: params[:product_id])
+
+      if @order_item.update(quantity: @order_item.quantity + params[:quantity])
+        render json: {status: 201, order_items: @order.order_items, order: @order}
+      else
+        render json: {status: 422}
+      end
+
     end
 
     rescue ActiveRecord::RecordNotFound => error
