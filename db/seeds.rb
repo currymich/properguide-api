@@ -18,7 +18,7 @@ OrderStatus.create! id: 3, name: "Shipped"
 OrderStatus.create! id: 4, name: "Cancelled"
 
 Product.destroy_all
-Product.create! id: 1, name: "Surgical Stent with Implant Guide", price: 120, image_url: "../img/stent_guide.jpg", alt_image: "../img/stent_guide.jpg", active: true
+Product.create! id: 1, name: "Surgical Implant Guide", price: 120, image_url: "../img/stent_guide.jpg", alt_image: "../img/stent_guide.jpg", active: true
 Product.create! id: 2, name: "CBCT", price: 150, image_url: "../img/cbct.jpg", alt_image: "../img/cbct.jpg", active: true
 Product.create! id: 3, name: "Screw Retained Crown", price: 400, image_url: "../img/screw1.jpg", alt_image: "../img/screw2.jpg", active: true
 Product.create! id: 4, name: "Cement Retained Crown", price: 400, image_url: "../img/cement1.jpg", alt_image: "../img/cement2.jpg", active: true
