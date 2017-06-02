@@ -12,9 +12,8 @@ class OrderItemsController < ApplicationController
 
   def create
     @order = Order.find(params[:order_id])
-    @order.order_items.new(order_item_params)
 
-    if @order.save!
+    if @order.order_items.create!(order_item_params)
       render json: {status: 201, order_items: @order.order_items, order: @order}
     else
       render json: {status: 422}
