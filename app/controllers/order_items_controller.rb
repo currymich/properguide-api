@@ -13,7 +13,7 @@ class OrderItemsController < ApplicationController
   def create
     @order = Order.find(params[:order_id])
 
-    if @order.order_items.where(product_id: order_item_params[:product_id]).empty?
+    if @order.order_items.where(product_id: params[:order_item][:product_id]).empty?
 
       if @order.order_items.create!(order_item_params)
         render json: {status: 201, order_items: @order.order_items, order: @order}
@@ -23,9 +23,9 @@ class OrderItemsController < ApplicationController
 
     else
 
-      @order_item = @order.order_items.find_by(product_id: order_item_params[:product_id])
+      @order_item = @order.order_items.find_by(product_id: params[:order_item][:product_id])
 
-      if @order_item.update(quantity: @order_item.quantity + order_item_params[:quantity])
+      if @order_item.update(quantity: @order_item.quantity + params[:order_item][:quantity])
         render json: {status: 201, order_items: @order.order_items, order: @order}
       else
         render json: {status: 422}
