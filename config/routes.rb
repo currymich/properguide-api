@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :questions, only: [:create]
 
-  resources :orders, only: [:create, :index, :destroy] do
+  resources :orders, only: [:create, :index, :destroy, :show] do
     resources :order_items, only: [:create, :update, :destroy, :index]
   end
 end
