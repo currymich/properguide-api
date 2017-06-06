@@ -7,13 +7,9 @@ class ApplicationController < ActionController::API
     render json: {status: 401, message: "unauthorized"} unless current_user && current_user.id == params[:id].to_i
   end
 
-  def authorize_cart
-    render json: {status: 401, message: "unauthorized"} unless current_user.id == current_order.user.id
-  end
-
   def bearer_token
     pattern = /^Bearer /
-    header  = request.env["HTTP_AUTHORIZATION"] # <= env
+    header  = request.env["HTTP_AUTHORIZATION"]
     header.gsub(pattern, '') if header && header.match(pattern)
   end
 
