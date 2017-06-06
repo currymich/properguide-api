@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authorize, except: [:login, :signup]
-
+  
   def login
     if params[:user][:email].include? "@"
       @user = User.find_by(email: params[:user][:email])
