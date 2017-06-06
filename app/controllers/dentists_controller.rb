@@ -28,7 +28,7 @@ class DentistsController < ApplicationController
   end
 
   def orders
-    @dentist = Dentist.find(params[:id])
+    @dentist = User.find(params[:id]).dentist
     @orders = @dentist.orders
 
     render json: {dentist: @dentist, orders: @orders}

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :dentists, only: [:show, :create] do
     collection do
-      get '/:id/orders', to 'dentists#orders'
+      get '/:id/orders', to: 'dentists#orders'
     end
   end
 
