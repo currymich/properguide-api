@@ -1,5 +1,6 @@
 class OrderItemsController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate, except: [:index]
+  before_action :authorize, except: [:create, :update, :destroy]
 
   def index
     @order = Order.find(params[:order_id])
