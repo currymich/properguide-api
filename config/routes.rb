@@ -3,11 +3,13 @@ Rails.application.routes.draw do
 
   resources :products, only: [:index, :show]
 
-  resources :users, only: [:show] do
+  resources :users, only: [] do
     collection do
       post '/login', to: 'users#login'
     end
   end
+
+  resources :dentists, only: [:show, :create]
 
   resources :questions, only: [:create]
 
