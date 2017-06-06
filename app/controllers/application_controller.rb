@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   def authenticate
-    render json: {status: 401, message: "unauthorized"} unless decode_token(bearer_token)
+    render json: {status: 401, message: "unauthorized"} unless current_user && current_user.admin?
   end
 
   def authorize
