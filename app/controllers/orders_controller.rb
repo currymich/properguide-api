@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
       @dentist = User.find(params[:id]).dentist
       @orders = @dentist.orders
 
-      render json: {admin: false, orders: @orders}
+      render json: {admin: false, orders: @orders, dentist_id: @dentist.id}
     end
 
   rescue ActiveRecord::RecordNotFound => error
