@@ -1,8 +1,20 @@
 class OrdersController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate, except: [:index]
 
   def index
-    render json: {orders: Order.all}
+    render json: {status: 401, message: "unauthorized"} unless current_user
+
+    if current_user.admin?
+      render json: {admin: true, orders: Order.all}
+    elsif current_user.id == params[:id].to_i
+      @dentist = User.find(params[:id]).dentist
+      @orders = @dentist.orders
+
+      render json: {admin: false, orders: @orders}
+    end
+
+  rescue ActiveRecord::RecordNotFound => error
+    render json: {error: "Dentist not found"}
   end
 
   def show

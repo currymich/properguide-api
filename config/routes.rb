@@ -9,11 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dentists, only: [:show, :create] do
-    collection do
-      get '/:id/orders', to: 'dentists#orders'
-    end
-  end
+  resources :dentists, only: [:show, :create]
 
   resources :questions, only: [:create]
 

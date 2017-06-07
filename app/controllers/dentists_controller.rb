@@ -27,15 +27,6 @@ class DentistsController < ApplicationController
     render json: {error: "Dentist not found"}
   end
 
-  def orders
-    @dentist = User.find(params[:id]).dentist
-    @orders = @dentist.orders
-
-    render json: {dentist: @dentist, orders: @orders}
-  rescue ActiveRecord::RecordNotFound => error
-    render json: {error: "Dentist not found"}
-  end
-
   private
 
     def dentist_params
