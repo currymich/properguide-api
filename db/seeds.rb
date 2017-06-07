@@ -15,10 +15,11 @@ Dentist.create! id: 2, name: "William Choi", office_name: "ProperGuide", email: 
 Dentist.create! id: 3, name: "Ngan Tran", office_name: "Bell Dental", email: "ngandmd@gmail.com", phone: "5105551234", address: "1599 Washington ave", address_state: "CA", address_city: "San Lorenzo", address_zip: "94541", license_num: "1508ga02"
 
 OrderStatus.destroy_all
-OrderStatus.create! id: 1, name: "In Progress"
-OrderStatus.create! id: 2, name: "Placed"
-OrderStatus.create! id: 3, name: "Shipped"
-OrderStatus.create! id: 4, name: "Cancelled"
+OrderStatus.create! id: 1, name: "Order Recieved"
+OrderStatus.create! id: 2, name: "In Progress"
+OrderStatus.create! id: 3, name: "Finalizing Product"
+OrderStatus.create! id: 4, name: "Shipped"
+OrderStatus.create! id: 5, name: "Cancelled"
 
 Product.destroy_all
 Product.create! id: 1, name: "Surgical Implant Guide", price: 120, image_url: "../img/stent_guide.jpg", alt_image: "../img/stent_guide.jpg", active: true
