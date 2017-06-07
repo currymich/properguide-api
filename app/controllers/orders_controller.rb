@@ -6,8 +6,8 @@ class OrdersController < ApplicationController
 
     if current_user.admin?
       render json: {admin: true, orders: Order.all}
-    elsif current_user.id == params[:id].to_i
-      @dentist = User.find(params[:id]).dentist
+    else
+      @dentist = User.find(current_user.id).dentist
       @orders = @dentist.orders
 
       render json: {admin: false, orders: @orders, dentist_id: @dentist.id}
