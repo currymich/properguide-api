@@ -6,7 +6,7 @@ class OrderItemsController < ApplicationController
 
     render json: {status: 401, message: "unauthorized"} unless current_user && (current_user.id == @order.dentist.user.id || current_user.admin?)
 
-    render json: {order_items: @order.order_items, order: @order, admin: @order.dentist.user.admin?}
+    render json: {order_items: @order.order_items, order: @order, admin: current_user.admin?}
 
     rescue ActiveRecord::RecordNotFound => error
       render json: {error: "Order not found"}
