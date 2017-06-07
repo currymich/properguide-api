@@ -33,6 +33,21 @@ class DentistsController < ApplicationController
 
   private
 
+    def token(id, email)
+      JWT.encode(payload(id, email), ENV['jwt_salt'], 'HS256')
+    end
+
+    def payload(id, email)
+      {
+        exp: (Time.now + 1.day).to_i,
+        iat: Time.now.to_i,
+        user: {
+          id: id,
+          email: email
+        }
+      }
+    end
+
     def dentist_params
       params.required(:dentist).permit(:name, :office_name, :email, :phone, :address, :address_state, :address_zip, :address_city, :license_num)
     end
