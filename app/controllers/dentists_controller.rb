@@ -3,7 +3,7 @@ class DentistsController < ApplicationController
   before_action :authenticate, except: [:show]
 
   # require current user id to match id on request
-  before_action :authorize, except: [:create]
+  before_action :authorize, except: [:create, :index]
 
   def create
     @dentist = Dentist.new(dentist_params)
