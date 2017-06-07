@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate, except: [:index]
+  before_action :authenticate, except: [:index, :show]
 
   def index
     render json: {status: 401, message: "unauthorized"} unless current_user
@@ -19,6 +19,8 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+
+    render json: {status: 401, message: "unauthorized"} unless current_user && (current_user.id == @order.dentist.user.id || current_user.admin?)
 
     render json: {order: @order}
 
