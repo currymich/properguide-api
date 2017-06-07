@@ -1,9 +1,10 @@
 class OrderItemsController < ApplicationController
   before_action :authenticate, except: [:index]
-  before_action :authorize, except: [:create, :update, :destroy]
 
   def index
     @order = Order.find(params[:order_id])
+
+    render json: {status: 401, message: "unauthorized"} unless current_user && (current_user.id == @order.dentist.user.id || current_user.admin?)
 
     render json: {order_items: @order.order_items, order: @order}
 
