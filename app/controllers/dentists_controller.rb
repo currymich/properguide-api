@@ -31,6 +31,10 @@ class DentistsController < ApplicationController
     render json: {error: "Dentist not found"}
   end
 
+  def index
+    render json: {dentists: Dentist.all}
+  end
+
   private
 
     def token(id, email)

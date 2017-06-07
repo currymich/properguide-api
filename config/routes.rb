@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dentists, only: [:show, :create]
+  resources :dentists, only: [:show, :create, :index]
 
   resources :questions, only: [:create]
 
