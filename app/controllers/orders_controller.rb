@@ -47,6 +47,21 @@ class OrdersController < ApplicationController
     rescue ActiveRecord::RecordNotFound => error
       render json: {error: "Order not found"}
   end
+
+  def update
+    @order = Order.find(params[:id])
+
+    if @order.update(order_params)
+      render json:{status: 200, message: "Order updated", orders: Order.all}
+    else
+      render json:{status: 422, message: "Couldn't process updated params"}
+    end
+  end
+
+  def statuses
+    render json: {statuses: OrderStatus.all}
+  end
+
   private
 
     def order_params

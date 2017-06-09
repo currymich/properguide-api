@@ -13,7 +13,10 @@ Rails.application.routes.draw do
 
   resources :questions, only: [:create]
 
-  resources :orders, only: [:create, :index, :destroy, :show] do
+  resources :orders, only: [:create, :index, :destroy, :show, :update] do
+    collection do
+      get '/statuses', to: 'orders#statuses'
+    end
     resources :order_items, only: [:create, :update, :destroy, :index]
   end
 end
