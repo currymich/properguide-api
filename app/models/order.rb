@@ -6,13 +6,6 @@ class Order < ApplicationRecord
 
   before_save :finalize
 
-  def update_order_status=(id)
-    if (id <= 4 && id >= 1)
-      self[:order_status_id] = id
-      self.save
-    end
-  end
-
 protected
 
   def update_order_status
