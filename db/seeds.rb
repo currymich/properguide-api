@@ -10,10 +10,6 @@ Dentist.destroy_all
 
 Dentist.create! id: 1, name: "Admin"
 
-Dentist.create! id: 2, name: "William Choi", office_name: "ProperGuide", email: "willdmd@gmail.com", phone: "5105175355", address: "1598 Washington ave", address_state: "CA", address_city: "San Leandro", address_zip: "94577", license_num: "189a80ab"
-
-Dentist.create! id: 3, name: "Ngan Tran", office_name: "Bell Dental", email: "ngandmd@gmail.com", phone: "5105551234", address: "1599 Washington ave", address_state: "CA", address_city: "San Lorenzo", address_zip: "94541", license_num: "1508ga02"
-
 OrderStatus.destroy_all
 OrderStatus.create! id: 1, name: "Order Recieved"
 OrderStatus.create! id: 2, name: "In Progress"
