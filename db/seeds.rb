@@ -6,8 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Dentist.destroy_all
-
 OrderStatus.destroy_all
 OrderStatus.create! id: 1, name: "Order Recieved"
 OrderStatus.create! id: 2, name: "In Progress"
