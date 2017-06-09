@@ -8,8 +8,6 @@
 
 Dentist.destroy_all
 
-Dentist.create! id: 1, name: "Admin"
-
 OrderStatus.destroy_all
 OrderStatus.create! id: 1, name: "Order Recieved"
 OrderStatus.create! id: 2, name: "In Progress"
