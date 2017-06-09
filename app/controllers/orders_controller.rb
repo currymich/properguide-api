@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate, except: [:index, :show]
+  before_action :authenticate, except: [:index, :show, :statuses]
 
   def index
     render json: {status: 401, message: "unauthorized"} unless current_user
