@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Order.destroy_all
 OrderStatus.destroy_all
 OrderStatus.create! id: 1, name: "Order Recieved"
 OrderStatus.create! id: 2, name: "In Progress"
@@ -22,12 +23,12 @@ Product.create! id: 5, name: "E-Max Veneer", price: 150, image_url: "../img/vene
 Product.create! id: 6, name: "Bridge", price: 150, image_url: "../img/bridge1.jpg", alt_image: "../img/bridge2.jpg", active: true
 Product.create! id: 7, name: "Non-Implant Crown", price: 150, image_url: "../img/crown1.jpg", alt_image: "../img/crown2.jpg", active: true
 
-Order.create! id: 1, dentist_id: 2, patient_name: "Mike Curry", order_status_id: 1
-Order.create! id: 2, dentist_id: 2, patient_name: "Andrew Doan", order_status_id: 1
-Order.create! id: 3, dentist_id: 2, patient_name: "Bao-Chau Nguyen", order_status_id: 1
+Order.create! id: 1, dentist_id: 2, patient_name: "Mike Curry", order_status_id: 1, due_date: DateTime.now + 2.weeks
+Order.create! id: 2, dentist_id: 2, patient_name: "Andrew Doan", order_status_id: 1, due_date: DateTime.now + 3.days
+Order.create! id: 3, dentist_id: 2, patient_name: "Bao-Chau Nguyen", order_status_id: 1, due_date: DateTime.now + 7.days
 
-Order.create! id: 4, dentist_id: 3, patient_name: "Richard Lai", order_status_id: 2
-Order.create! id: 5, dentist_id: 3, patient_name: "Chris Park", order_status_id: 1
+Order.create! id: 4, dentist_id: 3, patient_name: "Richard Lai", order_status_id: 2, due_date: DateTime.now + 1.day
+Order.create! id: 5, dentist_id: 3, patient_name: "Chris Park", order_status_id: 1, due_date: DateTime.now + 5.days
 
 Order.find(1).order_items.create! product_id: 1, quantity: 1
 Order.find(1).order_items.create! product_id: 4, quantity: 1
