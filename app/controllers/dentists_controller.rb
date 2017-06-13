@@ -3,7 +3,7 @@ class DentistsController < ApplicationController
   before_action :authenticate, except: [:show, :index, :update]
 
   # require current user id to match id on request
-  before_action :authorize, except: [:create, :index]
+  before_action :authorize, except: [:create, :index, :update]
 
   def create
     @dentist = Dentist.new(dentist_params)
@@ -49,16 +49,19 @@ class DentistsController < ApplicationController
 
   def update
     @dentist = Dentist.find(params[:id])
+    @user = @dentist.user
 
-    if @dentist.update(dentist_params){
-        @user.dentist.user
-        @user.update!(user: {
+    render json: {status: 401, message: "unauthorized"} unless current_user && current_user.id == @user.id
+
+    if @dentist.update!(dentist_params)
+
+        @user.update!(
           email: params[:dentist][:email],
-          name: params[:dentist][:name])
-        }
-      }
+          name: params[:dentist][:name]
+        )
 
-      render json:{status: 200, message: "Dentist updated", dentist: @dentist}
+        render json:{status: 200, message: "Dentist updated", dentist: @dentist}
+
     else
       render json:{status: 422, message: "Couldn't process updated params"}
     end
