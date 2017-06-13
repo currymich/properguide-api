@@ -9,7 +9,10 @@ class DentistsController < ApplicationController
     @dentist = Dentist.new(dentist_params)
 
     if @dentist.save!
-      @user = User.new(name: params[:dentist][:name], username: params[:dentist][:email], email: params[:dentist][:email], password: "temp_pass", dentist_id: @dentist.id)
+      @user = User.new(
+        name: params[:dentist][:name],
+        username: params[:dentist][:email], email: params[:dentist][:email], password: "temp_pass",
+        dentist_id: @dentist.id)
 
       if @user.save!
         @user.authenticate(params[:dentist][:password])
@@ -47,7 +50,14 @@ class DentistsController < ApplicationController
   def update
     @dentist = Dentist.find(params[:id])
 
-    if @dentist.update(dentist_params)
+    if @dentist.update(dentist_params){
+        @user.dentist.user
+        @user.update!(user: {
+          email: params[:dentist][:email],
+          name: params[:dentist][:name])
+        }
+      }
+
       render json:{status: 200, message: "Dentist updated", dentist: @dentist}
     else
       render json:{status: 422, message: "Couldn't process updated params"}
