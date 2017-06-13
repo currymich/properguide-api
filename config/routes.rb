@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :products, only: [:index, :show]
 
-  resources :users, only: [] do
+  resources :users, only: [:update] do
     collection do
       post '/login', to: 'users#login'
     end
