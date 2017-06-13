@@ -1,6 +1,6 @@
 class DentistsController < ApplicationController
   #require current user to be admin
-  before_action :authenticate, except: [:show, :index]
+  before_action :authenticate, except: [:show, :index, :update]
 
   # require current user id to match id on request
   before_action :authorize, except: [:create, :index]
