@@ -44,6 +44,16 @@ class DentistsController < ApplicationController
       render json: {error: "Dentist not found"}
   end
 
+  def update
+    @dentist = Dentist.find(params[:id])
+
+    if @dentist.update(dentist_params)
+      render json:{status: 200, message: "Dentist updated", dentist: @dentist}
+    else
+      render json:{status: 422, message: "Couldn't process updated params"}
+    end
+  end
+
   private
 
     def token(id, email)
