@@ -1,6 +1,6 @@
 class DentistsController < ApplicationController
   #require current user to be admin
-  before_action :authenticate, except: [:show]
+  before_action :authenticate, except: [:show, :index]
 
   # require current user id to match id on request
   before_action :authorize, except: [:create, :index]
@@ -32,7 +32,16 @@ class DentistsController < ApplicationController
   end
 
   def index
-    render json: {dentists: Dentist.all}
+    if current_user.admin?
+      render json: {dentists: Dentist.all}
+    else
+      @dentist = Dentist.find(current_user.dentist_id)
+
+      render json: {dentists: @dentist}
+    end
+
+    rescue ActiveRecord::RecordNotFound => error
+      render json: {error: "Dentist not found"}
   end
 
   private
