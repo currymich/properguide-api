@@ -85,6 +85,6 @@ class DentistsController < ApplicationController
     end
 
     def dentist_params
-      params.required(:dentist).permit(:name, :office_name, :email, :phone, :address, :address_state, :address_zip, :address_city, :license_num)
+      params.required(:dentist).permit(:name, :office_name, :email, :phone, :address, :address_state, :address_zip, :address_city, :license_num, :notes)
     end
 end

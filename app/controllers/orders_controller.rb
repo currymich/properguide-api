@@ -65,6 +65,6 @@ class OrdersController < ApplicationController
   private
 
     def order_params
-      params.required(:order).permit(:order_status_id, :dentist_id, :patient_name, :due_date)
+      params.required(:order).permit(:order_status_id, :dentist_id, :patient_name, :due_date, :instructions)
     end
 end
