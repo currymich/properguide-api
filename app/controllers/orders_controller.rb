@@ -52,7 +52,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     if @order.update(order_params)
-      render json:{status: 200, message: "Order updated", orders: Order.all}
+      render json:{status: 200, message: "Order updated", order: @order}
     else
       render json:{status: 422, message: "Couldn't process updated params"}
     end
