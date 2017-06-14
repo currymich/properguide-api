@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
 
   def login
-    if params[:user][:email].include? "@"
-      @user = User.find_by(email: params[:user][:email])
-    else
-      @user = User.find_by(username: params[:user][:email])
-    end
+
+    @user = User.find_by(email: params[:user][:email])
 
     if @user && @user.authenticate(params[:user][:password])
       @token = token(@user.id, @user.email)
@@ -46,6 +43,6 @@ class UsersController < ApplicationController
     end
 
     def user_params
-      params.required(:user).permit(:email, :password, :username, :name)
+      params.required(:user).permit(:email, :password, :name)
     end
 end
