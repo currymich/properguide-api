@@ -10,7 +10,7 @@ class DentistsController < ApplicationController
 
     if @dentist.save!
       @user = User.new(
-        email: params[:dentist][:email], password: "temp_pass",
+        email: params[:dentist][:email], password: ENV['temp_pass'],
         dentist_id: @dentist.id)
 
       if @user.save!
