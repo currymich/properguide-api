@@ -22,7 +22,7 @@ protected
   end
 
   def update_tax
-    self[:tax] = dentist.tax_rate * subtotal
+    self[:tax] = (dentist.tax_rate/100) * subtotal
   end
 
   def update_shipping(shipping)
