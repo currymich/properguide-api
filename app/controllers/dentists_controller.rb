@@ -56,7 +56,6 @@ class DentistsController < ApplicationController
 
         @user.update!(
           email: params[:dentist][:email],
-          name: params[:dentist][:name]
         )
 
         render json:{status: 200, message: "Dentist updated", dentist: @dentist}
