@@ -17,7 +17,7 @@ class PaypalController < ApplicationController
           :payment_method => "paypal"
         },
         :transactions => {
-          :amount: => {
+          :amount => {
             :total => @order[:total],
             :currency => "USD",
             :details =>  {
