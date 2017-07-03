@@ -53,4 +53,8 @@ class PaypalController < ApplicationController
       }.to_json
     })
   end
+
+  def execute
+
+  end
 end
