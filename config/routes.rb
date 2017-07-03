@@ -9,6 +9,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :paypal, only: [] do
+    collection do
+      post '/create', to 'paypal#create'
+      post '/execute', to 'paypal#execute'
+    end
+  end
+
   resources :dentists, only: [:show, :create, :index, :update]
 
   resources :questions, only: [:create]
@@ -20,18 +27,3 @@ Rails.application.routes.draw do
     resources :order_items, only: [:create, :update, :destroy, :index]
   end
 end
-
-
-# Pattern                                           Controller#Action
-# GET    /products(.:format)                         products#index
-# GET    /products/:id(.:format)                     products#show
-# POST   /users/login(.:format)                      users#login
-# GET    /users/:id(.:format)                        users#show
-# POST   /questions(.:format)                        questions#create
-# GET    /orders/:order_id/order_items(.:format)     order_items#index
-# POST   /orders/:order_id/order_items(.:format)     order_items#create
-# PATCH  /orders/:order_id/order_items/:id(.:format) order_items#update
-# PUT    /orders/:order_id/order_items/:id(.:format) order_items#update
-# DELETE /orders/:order_id/order_items/:id(.:format) order_items#destroy
-# GET    /orders(.:format)                           orders#index
-# POST   /orders(.:format)                           orders#create
