@@ -25,6 +25,8 @@ class PaypalController < ApplicationController
           }
         }.to_json
       })
+
+    render json: {payment: @payment}
   end
 
   def execute
