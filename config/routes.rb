@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   resources :paypal, only: [] do
     collection do
-      post '/create', to 'paypal#create'
-      post '/execute', to 'paypal#execute'
+      post '/create', to: 'paypal#create'
+      post '/execute', to: 'paypal#execute'
     end
   end
 
