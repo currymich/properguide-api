@@ -13,7 +13,7 @@ class PaypalController < ApplicationController
         :price => item.unit_price
       })
     end
-    
+
     @payment = HTTParty.post(
       "https://api.sandbox.paypal.com/v1/payments/payment", {
         :headers => { 'Content-Type' => 'application/json' },
@@ -28,12 +28,12 @@ class PaypalController < ApplicationController
           },
           :transactions => {
             :amount => {
-              :total => @order[:total],
+              :total => @order.total,
               :currency => "USD",
               :details =>  {
-                :subtotal => @order[:subtotal],
-                :shipping => @order[:shipping],
-                :tax => @order[:tax],
+                :subtotal => @order.subtotal,
+                :shipping => @order.shipping,
+                :tax => @order.tax,
               }
             },
             :item_list => {
