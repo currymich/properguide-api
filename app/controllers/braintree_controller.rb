@@ -8,16 +8,16 @@ class BraintreeController < ApplicationController
     if current_user
       begin
         @dentist = Order.find(params[:order_id]).dentist.id
-        @customer = Braintree::Customer.find(@dentist.id)
+        @customer = Braintree::Customer.find(@dentist[:id])
       rescue Braintree::NotFoundError => e
         @customer = Braintree::Customer.create(
-          :first_name => @dentist.name,
-          :id => @dentist.id
+          :first_name => @dentist[:name],
+          :id => @dentist[:id]
         )
       end
 
       @token = Braintree::ClientToken.generate(
-        :customer_id => @dentist.id,
+        :customer_id => @dentist[:id],
         :options => {
           :verify_card => true
         }
