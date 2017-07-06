@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :payments, only: [:create]
+
   resources :dentists, only: [:show, :create, :index, :update]
 
   resources :questions, only: [:create]
