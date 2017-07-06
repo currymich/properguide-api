@@ -38,7 +38,7 @@ class BraintreeController < ApplicationController
 
       @nonce = params[:nonce]
       @order = Order.find(params[:order_id])
-      @dentist = @order.dentist.id
+      @dentist = @order.dentist
 
       result = Braintree::Transaction.sale(
         :customer_id => @dentist.id,
