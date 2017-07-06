@@ -1,16 +1,20 @@
 class PaymentsController < ApplicationController
   def create
-    @payment = Payment.new(payment_params)
-    if @payment.save!
-      render json: {status: 201, payments: Payment.all}
+    @order = Order.find(params[:order_id])
+
+    if @order.payments.create!(payment_params)
+      render json: {status: 201, payments: Payment.all, order: @order}
     else
       render json: {status: 422}
     end
+
+    rescue ActiveRecord::RecordNotFound => error
+      render json: {error: "Order not found"}
   end
 
   private
 
     def payment_params
-      params.required(:payment).permit(:order_id, :amount, :description)
+      params.required(:payment).permit(:amount, :description)
     end
 end
