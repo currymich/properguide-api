@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :braintree, only: [] do
     collection do
-      get '/client_token', to: 'braintree#client_token'
+      post '/client_token', to: 'braintree#client_token'
       post '/checkout', to: 'braintree#checkout'
     end
   end
