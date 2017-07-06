@@ -7,17 +7,17 @@ class BraintreeController < ApplicationController
   def client_token
     if current_user
       begin
-        @customer = Braintree::Customer.find(current_user.id)
+        @dentist = Order.find(params[:order_id]).dentist.id
+        @customer = Braintree::Customer.find(@dentist.id)
       rescue Braintree::NotFoundError => e
-        @dentist = User.find(current_user.id).dentist
         @customer = Braintree::Customer.create(
           :first_name => @dentist.name,
-          :id => current_user.id
+          :id => @dentist.id
         )
       end
 
       @token = Braintree::ClientToken.generate(
-        :customer_id => current_user.id,
+        :customer_id => @dentist.id,
         :options => {
           :verify_card => true
         }
@@ -38,9 +38,10 @@ class BraintreeController < ApplicationController
 
       @nonce = params[:nonce]
       @order = Order.find(params[:order_id])
+      @dentist = @order.dentist.id
 
       result = Braintree::Transaction.sale(
-        :customer_id => current_user.id,
+        :customer_id => @dentist.id,
         :amount => @order.total,
         :payment_method_nonce => @nonce,
         :options => {
