@@ -9,10 +9,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :paypal, only: [] do
+  resources :braintree, only: [] do
     collection do
-      post '/create', to: 'paypal#create'
-      post '/execute', to: 'paypal#execute'
+      get '/client_token', to: 'braintree#client_token'
+      post '/checkout', to: 'braintree#checkout'
     end
   end
 
