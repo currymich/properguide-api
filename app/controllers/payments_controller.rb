@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
     @order = Order.find(params[:order_id])
     @payment = @order.payments.new(payment_params)
     if @payment.save!
-      render json: {status: 201, payments: Payment.all, order: @order, payment: @payment}
+      render json: {status: 201, payments: Payment.where(order_id: params[:order_id]), order: @order, payment: @payment}
     else
       render json: {status: 422}
     end
