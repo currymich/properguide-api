@@ -52,7 +52,7 @@ class BraintreeController < ApplicationController
       if result.success?
         render json: {message: "Payment processed successfully for amount #{@order.total}", payment: @order.total, status: 202}
       else
-        render json: {message: "Payment failed", status: 406}
+        render json: {error: result.errors, message: "Payment failed", status: 406}
       end
     else
       render json: {
