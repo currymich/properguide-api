@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   belongs_to :dentist
   has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
-  has_many :payments
+  has_many :payments, dependent: :destroy
 
   before_save :finalize
 
