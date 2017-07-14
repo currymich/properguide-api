@@ -31,7 +31,7 @@ protected
   end
 
   def update_total
-    self[:total] = self[:shipping] + self[:tax] + self[:subtotal]
+    self[:total] = (self[:shipping] + self[:tax] + self[:subtotal]).round(2)
   end
 
 private
