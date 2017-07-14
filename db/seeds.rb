@@ -6,13 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Order.destroy_all
-OrderStatus.destroy_all
-OrderStatus.create! id: 1, name: "Order Recieved"
-OrderStatus.create! id: 2, name: "In Progress"
-OrderStatus.create! id: 3, name: "Finalizing Product"
-OrderStatus.create! id: 4, name: "Shipped"
-OrderStatus.create! id: 5, name: "Cancelled"
+# Order.destroy_all
+# OrderStatus.destroy_all
+# OrderStatus.create! id: 1, name: "Order Recieved"
+# OrderStatus.create! id: 2, name: "In Progress"
+# OrderStatus.create! id: 3, name: "Finalizing Product"
+# OrderStatus.create! id: 4, name: "Shipped"
+# OrderStatus.create! id: 5, name: "Cancelled"
 
 Product.destroy_all
 Product.create! id: 1, name: "Surgical Implant Guide", price: 120, image_url: "../img/stent_guide.jpg", alt_image: "../img/stent_guide.jpg", active: true
@@ -23,6 +23,7 @@ Product.create! id: 5, name: "E-Max Veneer", price: 150, image_url: "../img/vene
 Product.create! id: 6, name: "Bridge", price: 150, image_url: "../img/bridge1.jpg", alt_image: "../img/bridge2.jpg", active: true
 Product.create! id: 7, name: "Non-Implant Crown", price: 150, image_url: "../img/crown1.jpg", alt_image: "../img/crown2.jpg", active: true
 Product.create! id: 8, name: "Additional Implant Guide", price: 20, image_url: "../img/extra_guide.jpg", active: true
+Product.create! id: 9, name: "Live Surgery Course", price: 3200, image_url: "../img/lecturing3.jpg", active: true
 
 # Order.create! id: 1, dentist_id: 2, patient_name: "Mike Curry", order_status_id: 1, due_date: DateTime.now + 2.weeks
 # Order.create! id: 2, dentist_id: 2, patient_name: "Andrew Doan", order_status_id: 1, due_date: DateTime.now + 3.days
@@ -40,5 +41,5 @@ Product.create! id: 8, name: "Additional Implant Guide", price: 20, image_url: "
 # Order.find(5).order_items.create! product_id: 1, quantity: 2
 
 ActiveRecord::Base.connection.tables.each do |t|
-  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+ActiveRecord::Base.connection.reset_pk_sequence!(t)
 end
