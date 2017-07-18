@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718161539) do
+ActiveRecord::Schema.define(version: 20170718210852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170718161539) do
     t.string   "instructions"
     t.decimal  "pay_received",    precision: 12, scale: 5
     t.decimal  "pay_due",         precision: 12, scale: 5
+    t.boolean  "tax_exempt"
     t.index ["dentist_id"], name: "index_orders_on_dentist_id", using: :btree
     t.index ["order_status_id"], name: "index_orders_on_order_status_id", using: :btree
   end

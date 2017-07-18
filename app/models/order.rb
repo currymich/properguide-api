@@ -23,7 +23,11 @@ protected
   end
 
   def update_tax
-    self[:tax] = (dentist.tax_rate/100) * subtotal
+    if self[:tax_exempt] == false
+      self[:tax] = (dentist.tax_rate/100) * subtotal
+    else
+      self[:tax] = 0
+    end
   end
 
   def update_shipping(shipping)
@@ -46,6 +50,7 @@ private
 
   def finalize
     self[:dentist_name] = Dentist.find(dentist_id).name
+    self[:tax_exempt] = false
     self[:shipping] = 0
     update_order_status
     update_subtotal
