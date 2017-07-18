@@ -40,10 +40,6 @@ class BraintreeController < ApplicationController
       @order = Order.find(params[:order_id])
       @dentist = @order.dentist
 
-      puts "_________________________\n
-            #{@order.pay_due}\n
-            __________________________"
-
       result = Braintree::Transaction.sale(
         :customer_id => @dentist.id,
         :amount => @order.pay_due,
