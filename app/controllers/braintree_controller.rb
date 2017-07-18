@@ -42,7 +42,7 @@ class BraintreeController < ApplicationController
 
       result = Braintree::Transaction.sale(
         :customer_id => @dentist.id,
-        :amount => params[:amount_due],
+        :amount => @order.pay_due,
         :payment_method_nonce => @nonce,
         :options => {
           :submit_for_settlement => true
