@@ -34,6 +34,14 @@ protected
     self[:total] = (self[:shipping] + self[:tax] + self[:subtotal]).round(2)
   end
 
+  def update_pay_received
+    self[:pay_received] = payments.collect {|payment| payment.amount}.sum
+  end
+
+  def update_pay_due
+    self[:pay_due] = (self[:total] - self[:pay_received]).round(2)
+  end
+
 private
 
   def finalize
@@ -44,5 +52,7 @@ private
     update_count
     update_tax
     update_total
+    update_pay_received
+    update_pay_due
   end
 end
