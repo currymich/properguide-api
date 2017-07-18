@@ -5,9 +5,14 @@ class Order < ApplicationRecord
   has_many :products, through: :order_items
   has_many :payments, dependent: :destroy
 
+  before_create :init
   before_save :finalize
 
 protected
+
+  def init
+    self[:tax_exempt] = false
+  end
 
   def update_order_status
     status_id = self[:order_status_id]
@@ -50,7 +55,6 @@ private
 
   def finalize
     self[:dentist_name] = Dentist.find(dentist_id).name
-    self[:tax_exempt] = false
     self[:shipping] = 0
     update_order_status
     update_subtotal
