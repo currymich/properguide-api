@@ -42,7 +42,7 @@ class BraintreeController < ApplicationController
 
       result = Braintree::Transaction.sale(
         :customer_id => @dentist.id,
-        :amount => @order.pay_due,
+        :amount => params[:amount],
         :payment_method_nonce => @nonce,
         :options => {
           :submit_for_settlement => true
@@ -50,12 +50,12 @@ class BraintreeController < ApplicationController
       )
 
       if result.success?
-        render json: {message: "Payment processed successfully for amount #{@order.pay_due}", payment: @order.pay_due, status: 202}
+        render json: {message: "Payment processed successfully for amount #{@order.pay_due}", payment: params[:amount], status: 202}
       else
         render json: {
           sale_params: {
             :customer_id => @dentist.id,
-            :amount => @order.pay_due
+            :amount => params[:amount]
             },
           error: result.errors,
           message: "Payment failed",
