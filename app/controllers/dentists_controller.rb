@@ -17,7 +17,7 @@ class DentistsController < ApplicationController
         @user.authenticate(params[:dentist][:password])
         @token = token(@user.id, @user.email)
 
-        render json: {message: "user created and logged in", status: 201, dentist: @dentist, user: @user, token: @token}
+        render json: {message: "user created and logged in", status: 201, dentist: @dentist, user: @user, token: @token, dentists: Dentist.all}
       end
     else
       render json: {status: 422}
