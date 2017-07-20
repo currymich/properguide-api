@@ -1,5 +1,5 @@
 class BraintreeController < ApplicationController
-  Braintree::Configuration.environment = :sandbox
+  Braintree::Configuration.environment = :production
   Braintree::Configuration.merchant_id = ENV['merchant_id'] || 'xb49ksnfwzgbp922'
   Braintree::Configuration.public_key = ENV['public_key'] ||'t8s3k7d2hfykc32k'
   Braintree::Configuration.private_key = ENV['private_key'] ||'7e5cfc1a293ae2f8ffdfd198a0382ae6'
