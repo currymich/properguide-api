@@ -20,7 +20,7 @@ class OrderItemsController < ApplicationController
       if @order.order_items.create!(order_item_params)
         # If there is a metal fee, add the metal fee product also
         if (Product.find(params[:product_id]).extra_fee) {
-          @order.order_items.create!(product_id: 20, quantity: 0);
+          @order.order_items.create!(product_id: 10, quantity: 0);
         }
         render json: {status: 201, order_items: @order.order_items, order: @order}
       else
