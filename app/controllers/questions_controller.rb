@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     if @question.save!
-      QuestionMailer.question_email(question).deliver_later
+      QuestionMailer.question_email(@question).deliver_later
       render json: {status: 201, question: @question}
     else
       render json: {status: 422}
