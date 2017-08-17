@@ -6,7 +6,6 @@ class QuestionsController < ApplicationController
       # using SendGrid's Ruby Library
       # https://github.com/sendgrid/sendgrid-ruby
       require 'sendgrid-ruby'
-      include SendGrid
 
       from = Email.new(email: params[:email])
       to = Email.new(email: 'properguideimplant@gmail.com')
