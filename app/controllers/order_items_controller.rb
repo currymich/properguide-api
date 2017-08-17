@@ -48,7 +48,7 @@ class OrderItemsController < ApplicationController
     @order_item = @order.order_items.find(params[:id])
 
     if @order_item.update(order_item_params)
-      render json: {status: 201, order_items: @order.order_items, order: @order}
+      render json: {status: 201, order_items: @order.order_items, order: @order, orders: Order.all}
     else
       render json: {status: 422}
     end
