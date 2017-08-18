@@ -1,18 +1,22 @@
 class QuestionsController < ApplicationController
+  require 'sendgrid-ruby'
+  sendgrid = SendGrid::Client.new do |c|
+    c.api_key = ENV['SENDGRID_APIKEY']
+  end
+
+
   def create
     @question = Question.new(question_params)
 
     if @question.save!
       # using SendGrid's Ruby Library
       # https://github.com/sendgrid/sendgrid-ruby
-      require 'sendgrid-ruby'
 
-      from = Email.new(email: params[:email])
-      to = Email.new(email: 'properguideimplant@gmail.com')
-      subject = 'Question from ProperGuide contact page'
-      content = Content.new(
-        type: 'text/html',
-        value: "<!DOCTYPE html>
+      email = SendGrid::Mail.new do |m|
+        m.to      = 'properguideimplant@gmail.com'
+        m.from    = params[:email]
+        m.subject = 'Question from ProperGuide contact page'
+        m.html    = "<!DOCTYPE html>
                 <html>
                 <head>
                   <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
@@ -65,14 +69,9 @@ class QuestionsController < ApplicationController
                 </table>
                 </body>
                 </html>
-              ")
-      mail = Mail.new(from, subject, to, content)
-
-      sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
-      response = sg.client.mail._('send').post(request_body: mail.to_json)
-      puts response.status_code
-      puts response.body
-      puts response.headers
+              "
+      end
+      sendgrid.send(email)
     else
       render json: {status: 422}
     end
