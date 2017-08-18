@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   require 'sendgrid-ruby'
-  sendgrid = SendGrid::Client.new do |c|
+  @sendgrid = SendGrid::Client.new do |c|
     c.api_key = ENV['SENDGRID_APIKEY']
   end
 
@@ -71,7 +71,7 @@ class QuestionsController < ApplicationController
                 </html>
               "
       end
-      sendgrid.send(email)
+      @sendgrid.send(email)
     else
       render json: {status: 422}
     end
